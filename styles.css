@@ -1,0 +1,14 @@
+html {
+	width: 100vw;
+}
+
+body {
+	width: 100%;
+}
+
+div.absolute.top-0.w-full.h-full.bg-center.bg-cover.bg-fixed {
+	background-image: url("https://image.freepik.com/free-vector/microbiology-isometric-poster-illustrated-equipment-science-laboratory-research-bacteria-virus-structures_1284-33313.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
