@@ -1,3 +1,16 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+}
+
+nav {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* Parent wrapper to carousel. Width can be changed as needed. */
 .carousel-wrapper {
 	overflow: hidden;
@@ -60,12 +73,12 @@
 	top: 50%;
 	width: 3rem;
 	height: 3rem;
-	background-color: #fff;
+	/* background-color: #fff; */
 	transform: translateY(-50%);
 	border-radius: 50%;
 	cursor: pointer;
 	z-index: 1001; /* Sit on top of everything */
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	/*  opacity: 0;  Hide buttons until carousel is initialised 
 	transition:opacity 1s;*/
 }
