@@ -1,155 +1,98 @@
-html,
-body {
-	width: 100%;
-	height: 100%;
-	margin: 0px;
-	padding: 0px;
-	overflow-x: hidden;
+/* Parent wrapper to carousel. Width can be changed as needed. */
+.carousel-wrapper {
+	overflow: hidden;
+	width: 90%;
+	margin: auto;
+}
+
+/* Apply 'border-box' to 'box-sizing' so border and padding is included in the width and height. */
+.carousel-wrapper * {
 	box-sizing: border-box;
 }
 
-div.absolute.top-0.w-full.h-full.bg-center.bg-cover.bg-fixed {
-	background-image: url("https://image.freepik.com/free-vector/microbiology-isometric-poster-illustrated-equipment-science-laboratory-research-bacteria-virus-structures_1284-33313.jpg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
-/* 2nd carousel */
-
+/* We'll be using the 'transform' property to move the carousel's items, so setting the 'transform-style' to 'preserve-3d' will make sure our nested elements are rendered properly in the 3D space. */
 .carousel {
-	position: relative;
-	box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);
-	margin-top: 0;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
 
-.carousel-inner {
-	position: relative;
-	overflow: hidden;
-	width: 100vw;
-}
-
-.carousel-open:checked + .carousel-item {
-	position: static;
-	opacity: 100;
-}
-
-.carousel-item {
-	position: absolute;
+/* By default we're hiding items (except the initial one) until the JS initiates. Elements are absolutely positioned with a width of 100% (as we're styling for mobile first), letting the content's height dictate the height of the carousel. Our magic property here for all our animation needs is 'transition', taking the properties we wish to animate 'transform' and 'opacity', along with the length of time in seconds. */
+.carousel__photo {
 	opacity: 0;
-	-webkit-transition: opacity 0.6s ease-out;
-	transition: opacity 0.6s ease-out;
-}
-
-.banner::after {
-	content: "";
 	position: absolute;
 	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-image: linear-gradient(0deg, #555555, #555555);
-	opacity: .7;
+	width: 100%;
+	margin: auto;
+	padding: 1rem 4rem;
+	z-index: 100;
+	transition: transform .5s, opacity .5s, z-index .5s;
 }
 
-.carousel-item img {
-	display: block;
-	height: auto;
-	max-width: 100vw;
+/* Display the initial item and bring it to the front using 'z-index'. These styles also apply to the 'active' item. */
+.carousel__photo.initial,
+.carousel__photo.active {
+	opacity: 1;
+	position: relative;
+	z-index: 900;
 }
 
-.carousel-control {
-	background: rgba(0, 0, 0, 0.28);
-	border-radius: 50%;
-	color: #fff;
-	cursor: pointer;
-	display: none;
-	font-size: 40px;
-	height: 40px;
-	line-height: 35px;
+/* Set 'z-index' to sit behind our '.active' item. */
+.carousel__photo.prev,
+.carousel__photo.next {
+	z-index: 800;
+}
+
+/* Translate previous item to the left */
+.carousel__photo.prev {
+	transform: translateX(-100%);
+}
+
+/* Translate next item to the right */
+.carousel__photo.next {
+	transform: translateX(100%);
+}
+
+/* Style navigation buttons to sit in the middle, either side of the carousel. */
+.carousel__button--prev,
+.carousel__button--next {
 	position: absolute;
 	top: 50%;
-	-webkit-transform: translate(0, -50%);
+	width: 3rem;
+	height: 3rem;
+	background-color: #fff;
+	transform: translateY(-50%);
+	border-radius: 50%;
 	cursor: pointer;
-	-ms-transform: translate(0, -50%);
-	transform: translate(0, -50%);
-	text-align: center;
-	width: 40px;
-	z-index: 10;
+	z-index: 1001; /* Sit on top of everything */
+	border: 1px solid black;
+	/*  opacity: 0;  Hide buttons until carousel is initialised 
+	transition:opacity 1s;*/
 }
 
-.carousel-control.prev {
-	left: 2%;
-}
-
-.carousel-control.next {
-	right: 2%;
-}
-
-.carousel-control:hover {
-	background: rgba(0, 0, 0, 0.8);
-	color: #aaaaaa;
-}
-
-#carousel-1:checked ~ .control-1,
-#carousel-2:checked ~ .control-2,
-#carousel-3:checked ~ .control-3 {
-	display: block;
-}
-
-.carousel-indicators {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	bottom: 2%;
+.carousel__button--prev {
 	left: 0;
+}
+
+.carousel__button--next {
 	right: 0;
-	text-align: center;
-	z-index: 10;
 }
 
-.carousel-indicators li {
-	display: inline-block;
-	margin: 0 5px;
-}
-
-.carousel-bullet {
-	color: #747474;
-	cursor: pointer;
-	display: block;
-	font-size: 35px;
-}
-
-.carousel-bullet:hover {
-	color: #aaaaaa;
-}
-
-#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
-#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
-	color: #fff;
-}
-
-#title {
-	width: 100%;
+/* Use pseudo elements to insert arrows inside of navigation buttons */
+.carousel__button--prev::after,
+.carousel__button--next::after {
+	content: " ";
 	position: absolute;
-	padding: 0px;
-	margin: 0px auto;
-	text-align: center;
-	font-size: 27px;
-	color: rgba(255, 255, 255, 1);
-	font-family: 'Open Sans', sans-serif;
-	z-index: 9999;
-	text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.33), -1px 0px 2px rgba(255, 255, 255, 0);
+	width: 10px;
+	height: 10px;
+	top: 50%;
+	left: 54%;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+	transform: translate(-50%, -50%) rotate(135deg);
 }
 
-/* Enable overflow for animations
-div.animated {
-	overflow-x: visible;
-}
-
-/* Media queries */
-
-@media only screen and (max-width: 1000px) {
+.carousel__button--next::after {
+	left: 47%;
+	transform: translate(-50%, -50%) rotate(-45deg);
 }
